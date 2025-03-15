@@ -21,9 +21,9 @@ export default function ArchitecturePage() {
 
       <h2 id="security-model">Security Model</h2>
       <p>
-        By settling on Arbitrum One, PrimapePrediction is able to leverage Arbitrum's security and infrastructure, while
+        By settling on Arbitrum One, PrimapePrediction is able to leverage Arbitrum&apos;s security and infrastructure, while
         still maintaining the benefits of being an independent chain. As Arbitrum One is itself settling on and secured
-        by Ethereum, PrimapePrediction is able to benefit from Ethereum's security and liquidity.
+        by Ethereum, PrimapePrediction is able to benefit from Ethereum&apos;s security and liquidity.
       </p>
 
       <h2 id="further-reading">Further Reading</h2>

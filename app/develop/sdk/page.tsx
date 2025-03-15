@@ -22,7 +22,7 @@ export default function SDKPage() {
       </pre>
 
       <h2 id="usage">Usage</h2>
-      <p>Here's a basic example of how to use the SDK to interact with a prediction market:</p>
+      <p>Here&apos;s a basic example of how to use the SDK to interact with a prediction market:</p>
       <pre>
         <code>
           {`

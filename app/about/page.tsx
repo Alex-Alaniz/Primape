@@ -60,8 +60,8 @@ export default function AboutPage() {
 
       <h2 id="get-involved">Get Involved</h2>
       <p>
-        Whether you're a seasoned trader, a curious newcomer, or a developer looking to integrate with our platform,
-        there's a place for you in the PrimapePrediction ecosystem. Join us in shaping the future of prediction markets!
+        Whether you&apos;re a seasoned trader, a curious newcomer, or a developer looking to integrate with our platform,
+        there&apos;s a place for you in the PrimapePrediction ecosystem. Join us in shaping the future of prediction markets!
       </p>
       <div className="mt-8">
         <TableOfContents />
