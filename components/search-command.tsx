@@ -84,7 +84,7 @@ export function SearchCommand() {
     }, 300)
 
     return () => clearTimeout(debounce)
-  }, [query])
+  }, [query, defaultItems])
 
   return (
     <>

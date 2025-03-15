@@ -3,7 +3,6 @@
 import { Menu } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { SearchCommand } from "@/components/search-command"
-import { useEffect, useState } from "react"
 
 interface TopNavProps {
   onToggleSidebar: () => void

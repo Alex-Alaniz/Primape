@@ -2,17 +2,17 @@
 
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes/dist/types"
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ThemeProviderProps = React.PropsWithChildren<Record<string, any>>
+
+export function ThemeProvider({ 
+  children,
+  ...props
+}: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
 
-export function useTheme() {
-  const context = React.useContext(NextThemesProvider)
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider')
-  }
-  return context
-}
+// Re-export the useTheme hook from next-themes
+export { useTheme } from "next-themes"
 

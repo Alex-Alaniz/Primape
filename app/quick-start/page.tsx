@@ -10,7 +10,7 @@ export default function QuickStartPage() {
 
       <h2 id="connect-your-wallet">1. Connect Your Wallet</h2>
       <p>
-        To interact with PrimapePrediction, you'll need to connect a compatible Ethereum wallet. We support MetaMask,
+        To interact with PrimapePrediction, you&apos;ll need to connect a compatible Ethereum wallet. We support MetaMask,
         WalletConnect, and other popular Ethereum wallets.
       </p>
 
@@ -21,7 +21,7 @@ export default function QuickStartPage() {
 
       <h2 id="buy-shares">3. Buy Shares</h2>
       <p>
-        Once you've found a market you're interested in, buy shares in the outcome you predict will occur. Remember, you
+        Once you&apos;ve found a market you&apos;re interested in, buy shares in the outcome you predict will occur. Remember, you
         can buy shares in multiple outcomes if you wish.
       </p>
 
