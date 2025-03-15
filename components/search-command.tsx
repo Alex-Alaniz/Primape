@@ -9,36 +9,41 @@ import {
   CommandGroup, 
   CommandInput, 
   CommandItem, 
-  CommandList 
+  CommandList,
+  CommandLoading
 } from "@/components/ui/command"
 import { Button } from "@/components/ui/button"
 import { DialogTitle } from "@/components/ui/dialog"
 
-// Define our search items structure
-interface SearchItem {
+// Define our search results structure
+interface SearchResult {
   title: string
-  href: string
-  group: string
+  url: string
+  excerpt: string
 }
-
-// Define all searchable items
-const searchItems: SearchItem[] = [
-  // Overview
-  { title: "Home", href: "/", group: "Overview" },
-  { title: "About", href: "/about", group: "Overview" },
-  
-  // Get Started
-  { title: "Quick Start", href: "/quick-start", group: "Get Started" },
-  { title: "Connect Wallet", href: "/connect-wallet", group: "Get Started" },
-  
-  // Development
-  { title: "Smart Contracts", href: "/develop/contracts", group: "Development" },
-  { title: "SDK Integration", href: "/develop/sdk", group: "Development" },
-]
 
 export function SearchCommand() {
   const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState("")
+  const [results, setResults] = useState<SearchResult[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+
+  // Default search items for when no query is entered
+  const defaultItems = [
+    // Overview
+    { title: "Home", url: "/", excerpt: "Overview" },
+    { title: "About", url: "/about", excerpt: "Overview" },
+    { title: "Architecture", url: "/architecture", excerpt: "Overview" },
+    
+    // Get Started
+    { title: "Quick Start", url: "/quick-start", excerpt: "Get Started" },
+    { title: "Connect Wallet", url: "/connect-wallet", excerpt: "Get Started" },
+    
+    // Development
+    { title: "Smart Contracts", url: "/develop/contracts", excerpt: "Development" },
+    { title: "SDK Integration", url: "/develop/sdk", excerpt: "Development" },
+  ]
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -50,6 +55,36 @@ export function SearchCommand() {
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
   }, [])
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setResults(defaultItems)
+      return
+    }
+
+    const fetchResults = async () => {
+      setIsLoading(true)
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+        if (!res.ok) {
+          throw new Error('Failed to fetch search results')
+        }
+        const data = await res.json()
+        setResults(data.results)
+      } catch (error) {
+        console.error('Error fetching search results:', error)
+        setResults([])
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    const debounce = setTimeout(() => {
+      fetchResults()
+    }, 300)
+
+    return () => clearTimeout(debounce)
+  }, [query])
 
   return (
     <>
@@ -66,26 +101,33 @@ export function SearchCommand() {
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <DialogTitle className="sr-only">Search documentation</DialogTitle>
-        <CommandInput placeholder="Search documentation..." />
+        <CommandInput 
+          placeholder="Search documentation..." 
+          value={query}
+          onValueChange={setQuery}
+        />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          {Array.from(new Set(searchItems.map(item => item.group))).map((group) => (
-            <CommandGroup key={group} heading={group}>
-              {searchItems
-                .filter(item => item.group === group)
-                .map((item) => (
-                  <CommandItem
-                    key={item.href}
-                    onSelect={() => {
-                      router.push(item.href)
-                      setOpen(false)
-                    }}
-                  >
-                    {item.title}
-                  </CommandItem>
-                ))}
+          {isLoading ? (
+            <CommandLoading>Searching...</CommandLoading>
+          ) : (
+            <CommandGroup heading="Results">
+              {results.map((item) => (
+                <CommandItem
+                  key={item.url}
+                  onSelect={() => {
+                    router.push(item.url)
+                    setOpen(false)
+                  }}
+                >
+                  <div className="flex flex-col">
+                    <span>{item.title}</span>
+                    <span className="text-xs text-muted-foreground">{item.excerpt}</span>
+                  </div>
+                </CommandItem>
+              ))}
             </CommandGroup>
-          ))}
+          )}
         </CommandList>
       </CommandDialog>
     </>

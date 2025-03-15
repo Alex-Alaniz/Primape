@@ -1,0 +1,110 @@
+---
+description: Apply these rules when creating the project
+globs:
+alwaysApply: true
+---
+## Project Overview
+
+*   **Type:** cursor_project_rules
+*   **Description:** PrimapePrediction Documentation – A comprehensive resource for users and developers explaining a multi-outcome prediction market platform built on Arbitrum One using pari-mutuel mechanics and featuring interactive elements such as ChatGPT integration.
+*   **Primary Goal:** Simplify onboarding, clarify technical concepts, and provide detailed developer guidelines for interacting with smart contracts and the SDK.
+
+## Project Structure
+
+### Framework-Specific Routing
+
+*   **Directory Rules:**
+
+    *   **next.js 14 (App Router):** Enforce use of the `app/` directory with nested route folders following conventions such as `app/[route]/page.tsx` (e.g. `app/home/page.tsx` for the Home Page, `app/develop/smartcontracts/page.tsx` for the Smart Contracts Page).
+    *   Example 1: "Next.js 14 (App Router)" → `app/[route]/page.tsx` conventions
+    *   Example 2: "Next.js (Pages Router)" → `pages/[route].tsx` pattern
+    *   Example 3: "React Router 6" → `src/routes/` with `createBrowserRouter`
+
+### Core Directories
+
+*   **Versioned Structure:**
+
+    *   **app/api:** Next.js 14 API routes with Route Handlers (e.g., for dynamic data fetching or server actions)
+    *   **app/views:** Component directories for UI elements following Next.js 14 best practices
+
+### Key Files
+
+*   **Stack-Versioned Patterns:**
+
+    *   **app/dashboard/layout.tsx:** Next.js 14 root layout file for dashboard and major pages
+    *   **pages/_app.js:** Example of Next.js Pages Router customization (not applicable if strictly using App Router)
+
+## Tech Stack Rules
+
+*   **Version Enforcement:**
+
+    *   **next@14:** App Router required; no use of `getInitialProps`; rely on server components and file-based routing in the `app/` directory
+    *   **typescript@latest:** Enforce strict typing and linting standards
+    *   **tailwindcss@latest:** Utilize utility-first CSS with responsive design support
+    *   **radix-ui@latest:** Maintain accessible, unstyled component patterns to allow custom theming
+    *   **@primapeprediction/sdk@latest:** Follow version-specific SDK usage guidelines for interacting with smart contracts
+    *   **vercel@latest:** Ensure deployment practices align with Vercel's optimized hosting and edge functions
+
+## PRD Compliance
+
+*   **Non-Negotiable:**
+
+    *   "PrimapePrediction is a multi-outcome prediction market platform built on the Arbitrum One blockchain." – Documentation must provide clear, detailed guides for both user onboarding and developer integration, including smart contract functions and SDK usage.
+
+## App Flow Integration
+
+*   **Stack-Aligned Flow:**
+
+    *   Example: "Next.js 14 Documentation Flow → `app/home/page.tsx` serves as the introduction with navigation to `app/about/page.tsx`, `app/quickstart/page.tsx`, `app/connectwallet/page.tsx`, `app/develop/smartcontracts/page.tsx`, and `app/develop/sdk/page.tsx` each handling specific content areas and incorporating server actions where applicable."
+
+## Best Practices
+
+*   **next.js**
+
+    *   Leverage server components and static generation where possible to optimize performance
+    *   Utilize file-based routing strictly with the `app/` directory to avoid conflicts
+    *   Maintain consistency in component structure and naming conventions
+
+*   **typescript**
+
+    *   Enable strict mode for maximum type safety
+    *   Use interfaces and types to clearly define props and state
+    *   Integrate ESLint and Prettier for code quality and consistency
+
+*   **tailwind css**
+
+    *   Use utility classes to enforce responsive design and maintain design consistency
+    *   Leverage Tailwind’s configuration file to standardize colors, spacing, and breakpoints
+    *   Minimize custom CSS to maintain the utility-first approach
+
+*   **radix ui**
+
+    *   Use unstyled components for maximum accessibility
+    *   Customize styling through Tailwind CSS without overriding functional integrity
+    *   Adhere to accessibility best practices in interaction design
+
+*   **arbitrum one**
+
+    *   Verify network configurations and wallet setups to ensure compatibility
+    *   Monitor blockchain events and transaction confirmations for up-to-date data
+    *   Follow best practices for interacting securely with EVM-based networks
+
+*   **@primapeprediction/sdk**
+
+    *   Integrate SDK following the guidelines provided in the documentation
+    *   Handle errors gracefully and provide clear error messages to developers
+    *   Keep the SDK updated to match smart contract versions and security patches
+
+*   **vercel**
+
+    *   Optimize deployment using Vercel’s edge functions and serverless architecture
+    *   Automate previews and continuous deployment for rapid iteration
+    *   Monitor performance and logs through Vercel’s dashboard to ensure uptime
+
+## Rules
+
+*   Derive folder/file patterns **directly** from techStackDoc versions.
+*   If Next.js 14 App Router: Enforce `app/` directory with nested route folders.
+*   If Pages Router: Use `pages/*.tsx` flat structure.
+*   Mirror this logic for React Router, SvelteKit, etc.
+*   Never mix version patterns (e.g., no `pages/` in App Router projects).

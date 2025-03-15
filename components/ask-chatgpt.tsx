@@ -9,12 +9,37 @@ export function AskChatGPT() {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [response, setResponse] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically send the query to your backend,
-    // which would then interact with the ChatGPT API
-    setResponse('This is a placeholder response. In a real implementation, this would be the response from ChatGPT.')
+    
+    if (!query.trim()) return
+    
+    setIsLoading(true)
+    setResponse('')
+    
+    try {
+      const res = await fetch('/api/chatgpt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+      })
+      
+      if (!res.ok) {
+        throw new Error('Failed to get response')
+      }
+      
+      const data = await res.json()
+      setResponse(data.answer)
+    } catch (error) {
+      console.error('Error asking ChatGPT:', error)
+      setResponse('Sorry, there was an error processing your request. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -31,8 +56,11 @@ export function AskChatGPT() {
               placeholder="Ask about the docs..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              disabled={isLoading}
             />
-            <Button type="submit">Ask</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? 'Thinking...' : 'Ask'}
+            </Button>
           </form>
           {response && (
             <div className="mt-4 rounded bg-muted p-2 text-sm">

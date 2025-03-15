@@ -56,6 +56,7 @@ export function SideNav({ visible, onToggleSidebar }: SideNavProps) {
           >
             <NavLink href="/" active={pathname === '/'}>Home</NavLink>
             <NavLink href="/about" active={pathname === '/about'}>About</NavLink>
+            <NavLink href="/architecture" active={pathname === '/architecture'}>Architecture</NavLink>
           </Category>
           <Category 
             title="Get Started" 
@@ -63,6 +64,7 @@ export function SideNav({ visible, onToggleSidebar }: SideNavProps) {
             onClick={() => toggleCategory('get-started')}
           >
             <NavLink href="/quick-start" active={pathname === '/quick-start'}>Quick Start</NavLink>
+            <NavLink href="/connect-wallet" active={pathname === '/connect-wallet'}>Connect Wallet</NavLink>
           </Category>
           <Category 
             title="Develop" 
@@ -70,6 +72,7 @@ export function SideNav({ visible, onToggleSidebar }: SideNavProps) {
             onClick={() => toggleCategory('develop')}
           >
             <NavLink href="/develop/contracts" active={pathname === '/develop/contracts'}>Smart Contracts</NavLink>
+            <NavLink href="/develop/sdk" active={pathname === '/develop/sdk'}>SDK Integration</NavLink>
           </Category>
         </div>
       </nav>
